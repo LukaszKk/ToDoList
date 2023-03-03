@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 streamlit = "^1.19.0"
+pysimplegui = "^4.60.4"
 
 
 [build-system]
