@@ -1,3 +1,4 @@
+import os
 import time
 import PySimpleGUI as Sg
 from src import functions
@@ -5,6 +6,10 @@ from src import functions
 
 class TodoWindow:
     def __init__(self):
+        if not os.path.exists("todos.txt"):
+            with open("todos.txt", "w") as f:
+                pass
+
         self.window = Sg.Window("Todo app",
                                 layout=self.__class__._layout(),
                                 font=("Helvetiva", 16))
@@ -52,13 +57,13 @@ class TodoWindow:
 
         self.window.close()
 
-    @staticmethod
-    def _add_todo(new_todo):
+    def _add_todo(self, new_todo):
         if not new_todo:
             return
         todos = functions.get_todos()
         todos.append(new_todo + "\n")
         functions.write_todos(todos)
+        self.window["todos"].update(values=todos)
 
     def _edit_todo(self, todo_to_edit, new_todo):
         todos = functions.get_todos()
